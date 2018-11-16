@@ -6,8 +6,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {
   registerComponent,
   Components,
-  withCurrentUser
+  withCurrentUser,
+  withSingle
 } from "meteor/vulcan:core";
+
+import Categories from "../../../modules/category/collection";
 
 const styles = theme => ({
   button: {
@@ -31,7 +34,9 @@ class ProductListScreen extends Component {
           Product List
         </Typography>
 
-        <Components.ProductList documentId={params.id} />
+        <Components.ProductList
+          terms={{ categoryId: params.id, view: "productsByCategory" }}
+        />
         <br />
 
         <Button
@@ -51,8 +56,19 @@ class ProductListScreen extends Component {
     );
   }
 }
+
+const singleOptions = {
+  collection: Categories,
+  fragmentName: "CategoryItemFragment"
+};
+
 registerComponent({
   name: "ProductListScreen",
   component: ProductListScreen,
-  hocs: [withCurrentUser, withRouter, [withStyles, styles]]
+  hocs: [
+    withCurrentUser,
+    withRouter,
+    [withSingle, singleOptions],
+    [withStyles, styles]
+  ]
 });

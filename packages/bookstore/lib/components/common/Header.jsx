@@ -20,6 +20,7 @@ import {
   registerComponent,
   withCurrentUser
 } from "meteor/vulcan:core";
+import Users from "meteor/vulcan:users";
 import classNames from "classnames";
 
 const drawerWidth = 240;
@@ -61,25 +62,43 @@ const styles = theme => ({
 });
 
 const NavLoggedIn = ({ currentUser }) => (
-  <Button
-    color="inherit"
-    onClick={() => {
-      Meteor.logout(() => browserHistory.push("/"));
-    }}
-  >
-    Logout
-  </Button>
+  <div className="header-nav header-logged-in">
+    <div className="header-accounts">
+      {" "}
+      <Components.ModalTrigger
+        label={Users.getDisplayName(currentUser)}
+        size="small"
+      >
+        <div>
+          {Users.isAdmin(currentUser) ? <p>Admin</p> : null}
+          <Components.AccountsLoginForm />
+        </div>
+      </Components.ModalTrigger>
+    </div>
+  </div>
+
+  // <Button
+  //   color="inherit"
+  //   onClick={() => {
+  //     Meteor.logout(() => browserHistory.push("/"));
+  //   }}
+  // >
+  //   Logout
+  // </Button>
 );
 
 const NavLoggedOut = ({ currentUser }) => (
-  <Button
-    color="inherit"
-    onClick={() => {
-      browserHistory.push("/login");
-    }}
-  >
-    Login
-  </Button>
+  <Components.ModalTrigger label="Login" size="small">
+    <Components.AccountsLoginForm />
+  </Components.ModalTrigger>
+  // <Button
+  //   color="inherit"
+  //   onClick={() => {
+  //     browserHistory.push("/login");
+  //   }}
+  // >
+  //   Login
+  // </Button>
 );
 
 const Header = (props, context) => {

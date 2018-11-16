@@ -6,7 +6,8 @@ Package.onUse(api => {
   api.use([
     "vulcan:core@1.12.8",
     "vulcan:forms@1.12.8",
-    "vulcan:accounts@1.12.8"
+    "vulcan:accounts@1.12.8",
+    "vulcan:admin@1.12.8"
   ]);
 
   api.mainModule("lib/server/main.js", "server");

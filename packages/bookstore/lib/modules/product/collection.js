@@ -21,4 +21,11 @@ Products.addDefaultView(terms => {
   };
 });
 
+Products.addView("productsByCategory", terms => {
+  return {
+    selector: { categoryId: terms.categoryId },
+    options: { sort: { postedAt: -1 } }
+  };
+});
+
 export default Products;

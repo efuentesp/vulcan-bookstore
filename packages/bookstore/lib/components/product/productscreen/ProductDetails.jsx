@@ -1,5 +1,5 @@
 import React from "react";
-import { browserHistory } from "react-router";
+import { withRouter } from "react-router";
 import NumberFormat from "react-number-format";
 import { Paper, Typography, Button, Grid } from "@material-ui/core";
 import { Cart } from "mdi-material-ui";
@@ -41,8 +41,8 @@ function ProductDetails(props) {
 registerComponent({ name: "ProductDetails", component: ProductDetails });
 
 function ProductDetailsInner(props) {
-  const { classes } = props;
-  if (props.loading) {
+  const { classes, router, loading } = props;
+  if (loading) {
     return <Components.Loading />;
   } else {
     return (
@@ -54,13 +54,8 @@ function ProductDetailsInner(props) {
               <br />
             </Grid>
             <Grid item md={8}>
-              <Typography variant="caption" color="textSecondary" gutterBottom>
-                Name
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                {props.document.name}
-              </Typography>
-              <br />
+              <Components.StaticText label="Name" value={props.document.name} />
+
               <Typography variant="caption" color="textSecondary" gutterBottom>
                 Description
               </Typography>
@@ -91,7 +86,7 @@ function ProductDetailsInner(props) {
             color="primary"
             className={classes.button}
             onClick={() => {
-              browserHistory.push("/shoppingcartscreen");
+              router.push("/shoppingcartscreen");
             }}
           >
             <Cart className={classes.extendedIcon} />
@@ -111,5 +106,5 @@ const singleOptions = {
 registerComponent({
   name: "ProductDetailsInner",
   component: ProductDetailsInner,
-  hocs: [[withSingle, singleOptions], [withStyles, styles]]
+  hocs: [[withSingle, singleOptions], withRouter, [withStyles, styles]]
 });

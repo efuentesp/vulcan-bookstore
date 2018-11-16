@@ -13,8 +13,8 @@ import {
 import { Check } from "mdi-material-ui";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
+  Components,
   registerComponent,
-  Loading,
   withMulti,
   withCurrentUser
 } from "meteor/vulcan:core";
@@ -58,7 +58,7 @@ const CategoryList = ({
 }) => (
   <div>
     {loading ? (
-      <Loading />
+      <Components.Loading />
     ) : (
       <div>
         <Paper className={classes.root}>
