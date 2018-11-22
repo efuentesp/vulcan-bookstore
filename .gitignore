@@ -51,3 +51,7 @@ packages/nova-router/.npm
 npm-debug.log
 
 .meteor/.id
+
+package-lock.json
+yarn.lock
+yarn-error.log
